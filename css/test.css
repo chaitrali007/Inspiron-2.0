@@ -1,0 +1,124 @@
+.carousel-item img {
+    height: 400px;
+    object-fit: cover;
+  }
+  
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-image: none;
+  }
+  
+  .carousel-control-prev-icon::before {
+    content: '\2039';
+    font-size: 2rem;
+    color: #fff;
+  }
+  
+  .carousel-control-next-icon::before {
+    content: '\203a';
+    font-size: 2rem;
+    color: #fff;
+  }
+  
+
+.submit {
+    margin-bottom: 200px;
+    background-color: #31D2B3;
+    
+}
+
+.submit:hover{
+    background-color: #21977F;
+}
+
+
+.input-group {
+    padding: 25px;
+}
+
+
+  /* Center the input field */
+#days-input {
+    margin: 0 auto;
+    width: 80px;
+  }
+  
+  /* Change the style of the plus and minus buttons */
+  #plus-btn,
+  #minus-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    color: #fff;
+  }
+  
+  #plus-btn:hover,
+  #minus-btn:hover {
+    background-color: #31D2B3;
+    color: #fff;
+    border-color: #31D2B3;
+  }
+  
+  body {
+    background-color: #ba9494;
+  }
+
+
+.slide {
+
+    margin: 100px;
+    padding: 50px;
+
+
+}
+
+.container {
+    margin: 100px 400px;
+  }
+  /* Add padding to the form */
+  .form {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  /* Style the form title */
+  .form-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  /* Style the search bar */
+  .search-bar {
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  /* Style the image cards */
+  .card {
+    width: 200px;
+    height: 300px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+  }
+  /* Style the image */
+  .card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  /* Style the card title */
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }

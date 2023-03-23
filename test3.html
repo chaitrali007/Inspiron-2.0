@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Calendar</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    .calendar {
+      display: inline-block;
+      margin: 20px;
+    }
+
+    .calendar table {
+      table-layout: fixed;
+    }
+
+    .calendar th,
+    .calendar td {
+      text-align: center;
+      vertical-align: middle;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .calendar th {
+      background-color: #f2f2f2;
+    }
+
+    .calendar td:not(.disabled) {
+      cursor: pointer;
+    }
+
+    .calendar td.selected {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .calendar td.disabled {
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="calendar">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="7">
+            <div class="row">
+              <div class="col-sm-3 text-left">
+                <button type="button" class="btn btn-secondary prev">&lt;</button>
+              </div>
+              <div class="col-sm-6 text-center">
+                <span class="month"></span> <span class="year"></span>
+              </div>
+              <div class="col-sm-3 text-right">
+                <button type="button" class="btn btn-secondary next">&gt;</button>
+              </div>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      var today = new Date();
+      var month = today.getMonth();
+      var year = today.getFullYear();
+      var selected = [];
+
+      updateCalendar(month, year);
+
+      $(".prev").click(function() {
+        month--;
+        if (month < 0) {
+          year--;
+          month = 11;
+        }
+        updateCalendar(month, year);
+      });
+
+      $(".next").click(function() {
+        month++;
+        if (month > 11) {
+          year++;
+          month = 0;
+        }
+        updateCalendar(month, year);
+      });
+
+      function updateCalendar(month, year) {
+        $(".month").text(getMonthName(month));
+        $(".year").text(year);
+        var daysInMonth = getDaysInMonth(month, year);
+        var firstDayOfMonth = new Date(year, month, 1).getDay();
+        var lastDayOfMonth = new Date(year, month, daysInMonth).getDay();
+        var calendar = $(".calendar tbody");
+    calendar.empty();
+    var row = $("<tr></tr>");
+    for (var i = 0; i < firstDayOfMonth; i++) {
+      row.append($("<td class='disabled'></td>"));
+    }
+    for (var day = 1; day <= daysInMonth; day++) {
+      var td = $("<td>" + day + "</td>");
+      if (selected.includes(day)) {
+        td.addClass("selected");
+      }
+      if (year < today.getFullYear() || (year == today.getFullYear() && month < today.getMonth()) || (year == today.getFullYear() && month == today.getMonth() && day < today.getDate())) {
+        td.addClass("disabled");
+      } else {
+        td.click(function() {
+          var day = parseInt($(this).text());
+          if ($(this).hasClass("selected")) {
+            selected = selected.filter(function(d) {
+              return d != day;
+            });
+          } else {
+            selected.push(day);
+          }
+          $(this).toggleClass("selected");
+        });
+      }
+      row.append(td);
+      if (row.children().length == 7) {
+        calendar.append(row);
+        row = $("<tr></tr>");
+      }
+    }
+    for (var i = lastDayOfMonth; i < 6; i++) {
+      row.append($("<td class='disabled'></td>"));
+    }
+    calendar.append(row);
+  }
+
+  function getMonthName(month) {
+    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return monthNames[month];
+  }
+
+  function getDaysInMonth(month, year) {
+    var daysInMonth = [31, (year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    return daysInMonth[month];
+  }
+});
+</script>
+</body>
+</html>
